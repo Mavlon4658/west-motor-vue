@@ -8,7 +8,7 @@ const props = defineProps({
     },
 })
 
-const isOpen = ref(true)
+const isOpen = ref(false)
 
 const header = ref(null)
 const content = ref(null)
