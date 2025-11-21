@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&display=swap');
+
+$font-inter: "Inter", sans-serif;
+$font-manrope: "Manrope", sans-serif;
+
+// Colors
+$color-blue: #17499f;
+$color-black: #000;
+$color-red: #d32536;
+$color-light-blue: #dfebff;
+$color-white: #fff;
+$color-my-gray: #3b3d40;
+$color-light-gray: #9f9f9f;
+$color-light-gray-2: #dfdfdf;
+$color-price: #3e73cf;
+$color-super-light-blue: #f0f7ff;
+// Colors end
+
+@mixin media($value) {
+    @if ($value < 0) {
+        @media screen and (min-width: calc($value * (-1)) + 'px') {
+            @content;
+        }
+
+    } @else {
+        @media screen and (max-width: $value + 'px') {
+            @content;
+        }
+    }
+}
