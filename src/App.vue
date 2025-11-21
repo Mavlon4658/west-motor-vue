@@ -1,5 +1,5 @@
 <script setup>
-import { reactive } from "vue"
+import { reactive, computed } from "vue"
 
 defineOptions({
   name: "App"
@@ -13,6 +13,13 @@ const auctionForm = reactive({
   displacement: 2000,
 })
 
+const auctionSelectResult = computed(() => {
+  const { type, location, age } = auctionForm;
+  return [type, location, age].filter(
+    v => v !== undefined && v !== null && String(v).trim() !== ''
+  )
+})
+
 const deliveryForm = reactive({
   from: 'США',
   to: 'Беларусь / Минск',
@@ -21,11 +28,25 @@ const deliveryForm = reactive({
   price2: false,
 })
 
+const deliverySelectResult = computed(() => {
+  const { from, to, through } = deliveryForm;
+  return [from, to, through].filter(
+    v => v !== undefined && v !== null && String(v).trim() !== ''
+  )
+})
+
 const customsForm = reactive({
   vehicleType: 'Легковой автомобиль',
   fuelType: 'Бензин',
   importerType: 'Физическое лицо',
   price: false,
+})
+
+const customsSelectResult = computed(() => {
+  const { vehicleType, fuelType, importerType } = customsForm;
+  return [vehicleType, fuelType, importerType].filter(
+    v => v !== undefined && v !== null && String(v).trim() !== ''
+  )
 })
 </script>
 
@@ -117,9 +138,11 @@ const customsForm = reactive({
 
             <template #result>
               <ul class="accordion-results">
-                <li class="accordion-results__item">Copart (USA)</li>
-                <li class="accordion-results__item">До 3 лет</li>
-                <li class="accordion-results__item">Abilene, TX</li>
+                <li
+                  v-for="(data, i) in auctionSelectResult"
+                  :key="i"
+                  class="accordion-results__item"
+                >{{ data }}</li>
               </ul>
             </template>
 
@@ -187,9 +210,11 @@ const customsForm = reactive({
 
             <template #result>
               <ul class="accordion-results">
-                <li class="accordion-results__item">США</li>
-                <li class="accordion-results__item">Клайпеда</li>
-                <li class="accordion-results__item">Минск</li>
+                <li 
+                  v-for="(data, i) in deliverySelectResult"
+                  :key="i"
+                  class="accordion-results__item"
+                >{{ data }}</li>
               </ul>
             </template>
 
@@ -254,9 +279,11 @@ const customsForm = reactive({
 
             <template #result>
               <ul class="accordion-results">
-                <li class="accordion-results__item">Легковой автомобиль</li>
-                <li class="accordion-results__item">Бензин</li>
-                <li class="accordion-results__item">Физическое лицо</li>
+                <li
+                  v-for="(data, i) in customsSelectResult"
+                  :key="i"
+                  class="accordion-results__item"
+                >{{ data }}</li>
               </ul>
             </template>
 
